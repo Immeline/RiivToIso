@@ -18,13 +18,13 @@
         
         <!--StackPanels for the user input-->
         <StackPanel Grid.Column="0">
-            <TextBox x:Name="dpeFolderPathTextBox" Height="26" Margin="0,212"></TextBox>
+            <TextBox x:Name="riiFolderPathTextBox" Height="26" Margin="0,212"></TextBox>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Button x:Name="goButton" Margin="0,197" Height="56"></Button>
+            <Button x:Name="goButton" Margin="0,197" Height="56" Click="onStartButtonClick"></Button>
         </StackPanel>
         <StackPanel Grid.Column="2">
-            <TextBox x:Name="mkwFolderPathTextBox" Height="26" Margin="0,212"></TextBox>
+            <TextBox x:Name="isoFolderPathTextBox" Height="26" Margin="0,212"></TextBox>
         </StackPanel>
     </Grid>
 </Window>

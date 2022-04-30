@@ -39,7 +39,7 @@ namespace RiivToISO
             string riiPath = riiBox.Text;
             string isoPath = isoBox.Text;
 
-            //if (String.IsNullOrEmpty(riiPath) || String.IsNullOrEmpty(isoPath)) return;
+            if (String.IsNullOrEmpty(riiPath)/* || String.IsNullOrEmpty(isoPath)*/) return;
 
             string riivXml = File.ReadAllText(riiPath + "\\riivolution\\Deluxe_USA.xml");
 
@@ -49,12 +49,26 @@ namespace RiivToISO
             //Console.WriteLine(riivDoc.OuterXml);
             Console.WriteLine(riivDoc.FirstChild.Name);
             XmlNode wiidisk = riivDoc.FirstChild;
-
+            List<List<string>> nodesForPatches = new List<List<string>>();
+            //Somehow navigate the dom and grab the proper folder definitions and file paths
             if (wiidisk.HasChildNodes)
             {
                 for (int i = 0; i < wiidisk.ChildNodes.Count; i++)
                 {
-                    Console.WriteLine(wiidisk.ChildNodes[i].Name + " : " + wiidisk.ChildNodes[i].OuterXml);
+                    Console.WriteLine(wiidisk.ChildNodes[i].Name + " : " + wiidisk.ChildNodes[i].InnerXml);
+                    List<string> list = wiidisk.ChildNodes[i].InnerXml.Split('<').ToList();
+                    for(int j = 0; j < list.Count; j++)
+                    {
+                        list[j] = list[j].Replace("/>", string.Empty);                    }
+                    nodesForPatches.Add(list);
+                }
+                
+                foreach(List<string> node in nodesForPatches)
+                {
+                    foreach(string s in node){
+                        if(string.IsNullOrEmpty(s)) continue;
+                        Console.WriteLine(s + " : ");
+                    }
                 }
             }
 
